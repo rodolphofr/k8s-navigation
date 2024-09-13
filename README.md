@@ -24,7 +24,7 @@ Inside de **Node** component we found the **kubelet** and **kubeproxy**. They ma
 * **kubelet** is responsible for execute the Pods inside the nodes.
 * **kubeproxy** is responsible for the communication between nodes and cluster.
 
-So, for each node we have a **kubelet** and a **kubeproxy** and the **api** is responsible for communication between all these components. The **api** will receives the outcome requests with the commands of it should do. But, how it can do that? Our machine doesn't know ow to do it alone. We need some tool with the ability to communicate with the Rest API of the cluster (the **api** resource). We need a tool called `kubectl`.
+So, for each node we have a **kubelet** and a **kubeproxy** and the **api** is responsible for communication between all these components. The **api** will receives the requests with the commands of it should do. But, how it can do that? Our machine doesn't know how to do this alone. We need some tool with the ability to communicate with the Rest API of the cluster (the **api** resource). We need a tool called `kubectl`.
 
 With `kubectl` we can *create*, *read*, *update* and *delete* the resources of the cluster, the components of the cluster.
 
