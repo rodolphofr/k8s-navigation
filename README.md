@@ -1,6 +1,6 @@
 # Kubernetes Navigation 🌊🚢 
 
-⚓ Imagine that you have an application that needs to run many containers. If you run all these containers in a single machine, it can become overload and stop working. The **Kubernetes** handles this problem very well. It **manages** a group of machines called a **cluster** that work together to execute these containers. With **Kubernetes** you can provide new containers and resources to the **cluster** depending on your application needs. This ability is called **"Horizontal Scale"** and the ability to manage and automate the execution of containers is called **Container Orchestration**. 
+⚓ Imagine that you have an application that needs to run many containers. If you run all these containers in a single machine, it can become overloaded and stop working. The **Kubernetes** handles this problem very well. It **manages** a group of machines called a **cluster** that work together to execute these containers. With **Kubernetes** you can provide new containers and resources to the **cluster** depending on your application needs. This ability is called **"Horizontal Scale"** and the ability to manage and automate the execution of containers is called **Container Orchestration**. 
 
 **Kubernetes** is much more than a container orchestration, it have many resources that turns the developer job so much easier. 
 
