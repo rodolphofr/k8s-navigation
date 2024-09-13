@@ -1,10 +1,11 @@
 # Pods ⚛️
 
-It is the smallest unit in **Kubernetes**.
+Aspects and true about Pod:
 
-**Pods** are made up of one or more containers.
-
-With `kubectl` we always create a **Pod**, not a container.
+- It is the smallest unit in **Kubernetes**.
+- **Pods** are made up of one or more containers.
+- With `kubectl` we always create a **Pod**, not a container.
+- A *Pod* is considered terminated when all of its containers stop working. If only one container is running, the Pod is considered healthy.
 
 In the following representation we can see that the **Pod** has its own IP address and the containers within it share the same IP address. This allows the containers within the same **Pod** to communicate directly via localhost, facilitating communication between them.
 
@@ -39,3 +40,23 @@ kubectl edit pods $pod_name
 ## Where are images downloaded to Pod containers stored?
 
 When we decide that a new **Pod** will be executed, the **Scheduler** (**sched**) decides in which **Node** this will happen. Then the images downloaded from the Docker Hub will be stored locally on each **Node**, and will not be shared, by default, between all cluster. 
+
+## How create Pod declaratively?
+
+We need a `.yaml` file with the following specifications:
+
+```yaml
+# nginx-pod.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx:stable
+```
+By executing the `kubectl apply -f nginx-pod.yaml` command, a **Pod** must be created on the cluster **Node**.
+
+To destroy the pod declaratively, you can run `kubectl delete -f nginx-pod.yaml` command.
