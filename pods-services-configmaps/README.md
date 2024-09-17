@@ -60,3 +60,15 @@ spec:
 By executing the `kubectl apply -f nginx-pod.yaml` command, a **Pod** must be created on the cluster **Node**.
 
 To destroy the pod declaratively, you can run `kubectl delete -f nginx-pod.yaml` command.
+
+# Services 
+
+One of the **Services** responsabilities is communication between **Pods** within the cluster. The **Services** resolve the instability of the **Pod** IPs, which can change at any time. It makes a fixed access point, with IP and DNS to allow **Pods** to communicate with each other, even if the **Pod** restarted or its IP has changed.
+
+There are three types of **Services**: **ClusterIP**, **NodePort** and **LoadBalancer**, each with its own specifications and characteristics.
+
+## ClusterIP:
+
+The **ClusterIP** is a type of **Service** whose responsibility is communication between its **Pods** within the cluster. It works as a fixed address for a specific **Pod**, allowing other **Pods** to communicate with it stably, even if the **Pod**'s IP changes.
+
+![Services ClusterIP](Services-ClusterIP.png)
