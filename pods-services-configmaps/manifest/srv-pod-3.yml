@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-pod-3
+spec:
+  type: LoadBalancer
+  selector:
+    app: pod-3-dns
+  ports:
+    - port: 80 # in/out on port 80
+      nodePort: 30001

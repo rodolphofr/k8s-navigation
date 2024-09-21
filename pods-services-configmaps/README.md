@@ -63,7 +63,7 @@ To destroy the pod declaratively, you can run `kubectl delete -f nginx-pod.yaml`
 
 # Services 
 
-One of the **Services** responsabilities is communication between **Pods** within the cluster. The **Services** resolve the instability of the **Pod** IPs, which can change at any time. It makes a fixed access point, with IP and DNS to allow **Pods** to communicate with each other, even if the **Pod** restarted or its IP has changed.
+One of the **Services** responsabilities, is communication between **Pods** within the cluster. The **Services** resolve the instability of the **Pod** IPs, which can change at any time. It makes a fixed access point, with IP and DNS to allow **Pods** to communicate with each other, even if the **Pod** restarted or its IP has changed.
 
 There are three types of **Services**: **ClusterIP**, **NodePort** and **LoadBalancer**, each with its own specifications and characteristics.
 
@@ -72,3 +72,40 @@ There are three types of **Services**: **ClusterIP**, **NodePort** and **LoadBal
 The **ClusterIP** is a type of **Service** whose responsibility is communication between its **Pods** within the cluster. It works as a fixed address for a specific **Pod**, allowing other **Pods** to communicate with it stably, even if the **Pod**'s IP changes.
 
 ![Services ClusterIP](Services-ClusterIP.png)
+
+The **Service** knows which pods to manage by defining `labels` in the `metadata` and using the `selector` field. In other words, `labels` are responsible for defining the relationship between the **Service** and the **Pod**.
+
+> The **ClusterIP** only works within the Cluster.
+## NodePort
+
+The **NodePort** works like a **ClusterIP**, but also exposes the application to the outside world through a specific **Kubernetes Node port**.
+
+To access the application through **NodePort**, it is necessary to use the Kubernetes Node port IP and the port defined in the service. This can be illustrate in the diagram below:
+
+![Services NodePort](Services-NodePort.png)
+
+In the result of the command below we can see some properties of the **NodePort** service, `srv-pod`. Inside the cluster, the service listens on port `80`, while outside the cluster it listens on port `30000`. 
+
+```bash
+> kubectl get services
+
+NAME         TYPE        CLUSTER-IP       PORT(S)  
+srv-pod    NodePort    10.107.148.12    80:30000/TCP
+```
+
+We use the Kubernetes node port IP to access the service though on port `30000`.
+
+```bash
+> kubectl get nodes
+
+NAME       STATUS   ROLES           INTERNAL-IP    
+minikube   Ready    control-plane   192.168.49.2
+```
+
+> The **NodePort** exposes **Pods** inside and outside the cluster.
+
+## LoadBalancer
+
+The **LoadBalancer** is a **Service** that allows you to access pods outside the cluster. It is also a **NodePort** and a **ClusterIP**. It is like a "gate" in front of Kubernetes cluster that directs traffic to the right pods. It can be easily integrated with Load Balancers from many cloud providers like AWS, Google Cloud or Azure.
+
+![Services LoadBalancer](Services-LoadBalancer.png)
