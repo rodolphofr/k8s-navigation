@@ -35,6 +35,9 @@ kubectl delete pods $pod_name
 
 # edit the properties and configurations from Pod
 kubectl edit pods $pod_name
+
+# Log more information about the pods and other resources
+kubectl get pods -o wide
 ```
 
 ## Where are images downloaded to Pod containers stored?
