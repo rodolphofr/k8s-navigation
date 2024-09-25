@@ -109,3 +109,5 @@ minikube   Ready    control-plane   192.168.49.2
 The **LoadBalancer** is a **Service** that allows you to access pods outside the cluster. It is also a **NodePort** and a **ClusterIP**. It is like a "gate" in front of Kubernetes cluster that directs traffic to the right pods. It can be easily integrated with Load Balancers from many cloud providers like AWS, Google Cloud or Azure.
 
 ![Services LoadBalancer](Services-LoadBalancer.png)
+
+# ConfigMap
