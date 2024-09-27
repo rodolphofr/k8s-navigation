@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: news-system-configmap
+data:
+  HOST_DB: srv-news-db:3306 # service dns
+  USER_DB: root
+  PASS_DB: q1w2e3r4
+  DATABASE_DB: empresa

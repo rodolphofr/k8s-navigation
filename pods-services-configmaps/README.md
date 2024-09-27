@@ -9,7 +9,7 @@ Aspects and true about Pod:
 
 In the following representation we can see that the **Pod** has its own IP address and the containers within it share the same IP address. This allows the containers within the same **Pod** to communicate directly via localhost, facilitating communication between them.
 
-![Pods and containers communication](Pods-And-Containers-Communcation.png)
+![Pods and containers communication](diagrams/Pods-And-Containers-Communcation.png)
 
 **Pods** are ephemeral which is why Kubernetes can create and destroy them at any time. If a **Pod** fails, Kubernetes can create another one and replace it, but not necessarily with the same IP address.
 
@@ -74,7 +74,7 @@ There are three types of **Services**: **ClusterIP**, **NodePort** and **LoadBal
 
 The **ClusterIP** is a type of **Service** whose responsibility is communication between its **Pods** within the cluster. It works as a fixed address for a specific **Pod**, allowing other **Pods** to communicate with it stably, even if the **Pod**'s IP changes.
 
-![Services ClusterIP](Services-ClusterIP.png)
+![Services ClusterIP](diagrams/Services-ClusterIP.png)
 
 The **Service** knows which pods to manage by defining `labels` in the `metadata` and using the `selector` field. In other words, `labels` are responsible for defining the relationship between the **Service** and the **Pod**.
 
@@ -85,7 +85,7 @@ The **NodePort** works like a **ClusterIP**, but also exposes the application to
 
 To access the application through **NodePort**, it is necessary to use the Kubernetes Node port IP and the port defined in the service. This can be illustrate in the diagram below:
 
-![Services NodePort](Services-NodePort.png)
+![Services NodePort](diagrams/Services-NodePort.png)
 
 In the result of the command below we can see some properties of the **NodePort** service, `srv-pod`. Inside the cluster, the service listens on port `80`, while outside the cluster it listens on port `30000`. 
 
@@ -111,6 +111,57 @@ minikube   Ready    control-plane   192.168.49.2
 
 The **LoadBalancer** is a **Service** that allows you to access pods outside the cluster. It is also a **NodePort** and a **ClusterIP**. It is like a "gate" in front of Kubernetes cluster that directs traffic to the right pods. It can be easily integrated with Load Balancers from many cloud providers like AWS, Google Cloud or Azure.
 
-![Services LoadBalancer](Services-LoadBalancer.png)
+![Services LoadBalancer](diagrams/Services-LoadBalancer.png)
 
 # ConfigMap
+
+**ConfigMap** is a Kubernetes resource that allows you to store various configurations separately from **Pods**. This is very helpful in making the **Pods** portable and reusable.
+
+We can use the same **ConfigMap** in different **Pods**. You can create a **ConfigMap** definition in a separate file and reference it in the **Pod** definition file, without copying and pasting configurations.
+
+![ConfigMap](diagrams/ConfigMap.png)
+
+See below how we can make a reference to **ConfigMap**:
+
+```yaml
+# my-configmap.yml
+apiVersion: v1
+kind: ConfigMap
+metatada:
+  name: my-configmap
+data:
+  MY_APP_ENV_VAR_1: some-value
+  MY_APP_ENV_VAR_2: some-value
+
+# pod-1.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+spec:
+  containers:
+    # Reference for each ConfigMap configuration
+    - env:
+        - name: MY_APP_ENV_VAR_1
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: MY_APP_ENV_VAR_1
+        - name: MY_APP_ENV_VAR_2
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: MY_APP_ENV_VAR_2
+
+# pod-2.yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-2
+spec:
+  containers:
+    # ConfigMap reference
+    - envFrom:
+        - configMapRef:
+            name: my-configmap
+```
