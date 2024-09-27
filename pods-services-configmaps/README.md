@@ -124,7 +124,6 @@ We can use the same **ConfigMap** in different **Pods**. You can create a **Conf
 See below how we can make a reference to **ConfigMap**:
 
 ```yaml
-# my-configmap.yml
 apiVersion: v1
 kind: ConfigMap
 metatada:
@@ -133,7 +132,8 @@ data:
   MY_APP_ENV_VAR_1: some-value
   MY_APP_ENV_VAR_2: some-value
 
-# pod-1.yml
+--
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -153,7 +153,8 @@ spec:
               name: my-configmap
               key: MY_APP_ENV_VAR_2
 
-# pod-2.yml
+--
+
 apiVersion: v1
 kind: Pod
 metadata:
