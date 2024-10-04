@@ -7,7 +7,7 @@
 We can see in the Kubernetes manifest below how to declare a **ReplicaSet**:
 
 ```yml
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
   name: nginx-replicaset
@@ -32,9 +32,25 @@ spec:
             - containerPort: 80
 ```
 
-
 # Deployments
 
-Esta a uma camada acima do ReplicaSet
-Quando criamos um Deployment automaticamente estamos criando um ReplicaSet
-Deployment auxiliam com o controle de versionamento e criam um ReplicaSet automaticamente
+A *Deployment* is just a layer above the **ReplicaSet**. It allows you to manage the version of images and **Pods**, like a Git repository. It is like a version control for your applications in Kubernetes.
+
+With **Deployments** you can:
+- Create, update and manages Pods in an automated way.
+- Control the versions **Pods** and images.
+- Rollback to previous versions.
+- Record the changes you make as a commit history.
+
+Commands to check the history versions from the **Deployment**:
+
+```bash
+# show the history from a specific Deployment
+kubectl rollout history deployment $deployment_name
+
+# change the message from the current Deployment revision
+kubectl annotate deployment $deployment_name kubernetes.io/change-cause="$message_about_the_change"
+
+# apply rollback for some Deployment revision
+kubectl rollout undo deployment $deployment_name --to-revision=$number_of_deployment_revision
+```
