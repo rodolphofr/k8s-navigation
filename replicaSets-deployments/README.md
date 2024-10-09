@@ -34,7 +34,7 @@ spec:
 
 # Deployments
 
-A *Deployment* is just a layer above the **ReplicaSet**. It allows you to manage the version of images and **Pods**, like a Git repository. It is like a version control for your applications in Kubernetes.
+A **Deployment** is just a layer above the **ReplicaSet**. It allows you to manage the version of images and **Pods**, like a Git repository. It is like a version control for your applications in Kubernetes.
 
 ![Deployment Diagram](diagrams/Deployment.png)
 
